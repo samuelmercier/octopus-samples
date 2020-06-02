@@ -15,35 +15,30 @@ const octopus=function() {
 
 	const initializers=new Map();
 	const libraries=new Map();
-	const octopus={};
-
-	octopus.define=Object.freeze(function(libraryName, initializer) {
-		if(typeof initializer!=="function")
-			throw new Error("initializer is not a function");
-		if(initializers.has(libraryName))
-			throw new Error("redefinition of library '"+libraryName+"'");
-		initializers.set(libraryName, initializer);
+	const module=Object.freeze({
+		define:Object.freeze(function(libraryName, initializer) {
+			if(typeof initializer!=="function")
+				throw new Error("initializer is not a function");
+			if(initializers.has(libraryName))
+				throw new Error("redefinition of library '"+libraryName+"'");
+			initializers.set(libraryName, initializer);
+		}),
+		resolve:Object.freeze(function(libraryName) {
+			const library=libraries.get(libraryName);
+			if(library!==undefined)
+				return library;
+			const initializer=initializers.get(libraryName);
+			if(initializer===undefined)
+				throw new Error("cannot resolve library '"+libraryName+"'");
+			const result=initializer();
+			libraries.set(libraryName, result);
+			return result;
+		}),
+		initialize:Object.freeze(function() {
+			for(const libraryName of initializers.keys())
+				module.resolve(libraryName);
+		})
 	});
-
-	octopus.resolve=Object.freeze(function(libraryName) {
-		const library=libraries.get(libraryName);
-		if(library!==undefined)
-			return library;
-		const initializer=initializers.get(libraryName);
-		if(initializer===undefined)
-			throw new Error("cannot resolve library '"+libraryName+"'");
-		const result={};
-		libraries.set(libraryName, result);
-		initializer(result);
-		return Object.freeze(result);
-	});
-
-	octopus.initialize=function() {
-		for(const libraryName of initializers.keys())
-			octopus.resolve(libraryName);
-	};
-
-	return Object.freeze(octopus);
+	return module;
 
 }();
-
