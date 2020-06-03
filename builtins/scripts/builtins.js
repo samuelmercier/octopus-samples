@@ -44,6 +44,27 @@
 
 }
 
+@native class ArrayBuffer {
+
+	static isView(arg) {}
+
+	constructor(length) {}
+
+	get byteLength() {}
+
+	slice(begin, @optional end) {}
+
+}
+
+@native @function class Boolean {
+
+	constructor(@optional value) {}
+
+	toString() {}
+	valueOf() {}
+
+}
+
 @native class Date {
 
 	static UTC(year, @optional month, @optional day, @optional hour, @optional minute, @optional second, @optional millisecond) {}
@@ -52,12 +73,102 @@
 
 	constructor(@optional value, @optional monthIndex, @optional day, @optional hours, @optional minutes, @optional seconds, @optional milliseconds) {}
 
+	getDate() {}
+	getDay() {}
+	getFullYear() {}
+	getHours() {}
+	getMilliseconds() {}
+	getMinutes() {}
+	getMonth() {}
+	getSeconds() {}
+	getTime() {}
+	getTimezoneOffset() {}
+	getUTCDate() {}
+	getUTCDay() {}
+	getUTCFullYear() {}
+	getUTCHours() {}
+	getUTCMilliseconds() {}
+	getUTCMinutes() {}
+	getUTCMonth() {}
+	getUTCSeconds() {}
+	getYear() {}
+	setDate(dayValue) {}
+	setFullYear(yearValue, @optional monthValue, @optional dateValue) {}
+	setHours(hoursValue, @optional minutesValue, @optional secondsValue, @optional msValue) {}
+	setMilliseconds(millisecondsValue) {}
+	setMinutes(minutesValue, @optional secondsValue, @optional msValue) {}
+	setMonth(monthValue, @optional dayValue) {}
+	setSeconds(secondsValue, @optional msValue) {}
+	setTime(timeValue) {}
+	setUTCDate(dayValue) {}
+	setUTCFullYear(yearValue, @optional monthValue, @optional dayValue) {}
+	setUTCHours(hoursValue, @optional minutesValue, @optional secondsValue, @optional msValue) {}
+	setUTCMilliseconds(millisecondsValue) {}
+	setUTCMinutes(minutesValue, @optional secondsValue, @optional msValue) {}
+	setUTCMonth(monthValue, dayValue) {}
+	setUTCSeconds(secondsValue, msValue) {}
+	setYear(yearValue) {}
+	toDateString() {}
+	toISOString() {}
+	toJSON() {}
+	toGMTString() {}
+	toLocaleDateString(@optional locales, @optional options) {}
+	toLocaleString(@optional locales, @optional options) {}
+	toLocaleTimeString(@optional locales, @optional options) {}
+	toString() {}
+	toTimeString() {}
+	toUTCString() {}
+	valueOf() {}
+
+}
+
+@native @function class Function {
+
+	get length() {}
+	get name() {}
+
+	constructor(FirstArgOrFunctionBody, ...) {}
+
+	apply(thisArg, @optional argsArray) {}
+	bind(thisArg, ...) {}
+	call(thisArg, ...) {}
+	toString() {}
+
+}
+
+@native @function class Number {
+
+	static EPSILON;
+	static MAX_SAFE_INTEGER;
+	static MAX_VALUE;
+	static MIN_SAFE_INTEGER;
+	static MIN_VALUE;
+	static NaN;
+	static NEGATIVE_INFINITY;
+	static POSITIFE_INFINITY;
+
+	static isFinite(value) {}
+	static isInteger(value) {}
+	static isNaN(value) {}
+	static isSafeInteger(value) {}
+	static parseFloat(value) {}
+	static parseInt(string, @optional radix) {}
+
+	constructor() {}
+
+	toExponential(fractionDigits) {}
+	toFixed(digits) {}
+	toLocaleString(@optional locales, @optional options) {}
+	toPrecision(precision) {}
+	toString(@optional radix) {}
+	valueOf() {}
+
 }
 
 @native function Error(@optional message, @optional fileName, @optional lineNumber) {}
 @native function TypeError(@optional message, @optional fileName, @optional lineNumber) {}
 
-@native class Object extends null {
+@native @function class Object extends null {
 
 	static assign(target, ...) {}
 	static create(proto, @optional propertiesObject) {}
@@ -187,13 +298,56 @@
 
 }
 
+@native class TypedArray {
+
+	static from(source, @optional mapFn, @optional thisArg) {}
+	static of() {}
+
+	copyWithin(target, start, @optional end) {}
+	entries() {}
+	every(callback, @optional thisArg) {}
+	fill(value, @optional start, @optional end) {}
+	filter(callback, @optional thisArg) {}
+	find(callback, @optional thisArg) {}
+	findIndex(callback, @optional thisArg) {}
+	forEach(callback, @optional thisArg) {}
+	includes(searchElement, @optional fromIndex) {}
+	indexOf(searchElement, @optional fromIndex) {}
+	join(@optional separator) {}
+	keys() {}
+	lastIndexOf(searchElement, @optional fromIndex) {}
+	map(mapFn, @optional thisArg) {}
+	reduce(callback, @optional initialValue) {}
+	reduceRight(callback, @optional initialValue) {}
+	reverse() {}
+	set(array, @optional offset) {}
+	slice(begin, @optional end) {}
+	some(callback, @optional thisArg) {}
+	sort(@optional compareFunction) {}
+	subarray(begin, @optional end) {}
+	toLocaleString(@optional locales, @optional options) {}
+	toString() {}
+	values() {}
+
+}
+
+@native class Uint8Array extends TypedArray {
+
+	constructor(@optional lengthOrTypedArrayOrObject, @optional byteOffset, @optional length) {}
+
+}
+
 @native function alert(@optional message) {}
+@native function decodeURIComponent(encodedURI) {}
 @native function encodeURIComponent(str) {}
 @native function isFinite(testValue) {}
 @native function isNaN(value) {}
 @native function parseFloat(value) {}
 @native function parseInt(string, @optional radix) {}
+@native const Infinity;
+@native const NaN;
 @native const console;
+@native const document;
 @native const performance;
 @native const undefined;
 @native const window;
@@ -229,3 +383,4 @@ const octopus=function() {
 	return module;
 
 }();
+
